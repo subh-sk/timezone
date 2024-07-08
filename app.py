@@ -42,7 +42,7 @@ def index():
                     }
                 }
             },
-            "country_codes:": {country.alpha_2: country.name for country in pycountry.countries}
+            "country_codes": {country.alpha_2: country.name for country in pycountry.countries}
         }
         return jsonify(example_output), 400
 

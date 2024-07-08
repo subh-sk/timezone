@@ -15,33 +15,29 @@ def index():
             response = {
                 'country': country,
                 'date': current_time.strftime('%Y-%m-%d'),
-                'time': current_time.strftime('%H:%M:%S %Z%z')
+                'time': {
+                    '12_hour': current_time.strftime('%I:%M:%S %p %Z%z'),
+                    '24_hour': current_time.strftime('%H:%M:%S %Z%z')
+                }
             }
-            example_url = f"{request.url_root}?country={country.lower()}"
-            example_output = {
-                'country': country.lower(),
-                'date': current_time.strftime('%Y-%m-%d'),
-                'time': current_time.strftime('%H:%M:%S %Z%z')
-            }
-            return jsonify([
-                {"Example": {"format to send": example_url, "output": example_output}},
-                {"Country code:": list(pytz.country_timezones.keys())},
-                {"Country names:": {country.alpha_2: country.name for country in pycountry.countries}}
-            ])
+            return jsonify(response)
         except KeyError:
-            return jsonify({'error': f'Country {country} not found or does not have a valid timezone.'}), 400
+            return jsonify({'error': f'Country code {country} not found or does not have a valid .'}), 400
     else:
-        example_url = f"{request.url_root}?country=<country_code>"
+        example_url = f"{request.url_root}?country=country_code"
         example_output = {
             "Example": {
                 "format to send": example_url,
                 "output": {
                     "country": "country_code",
                     "date": "YYYY-MM-DD",
-                    "time": "HH:MM:SS TZ+ZZZZ"
+                    "time": {
+                        "12_hour": "HH:MM:SS AM/PM TZ+ZZZZ",
+                        "24_hour": "HH:MM:SS TZ+ZZZZ"
+                    }
                 }
             },
-            "Country names:": {country.alpha_2: country.name for country in pycountry.countries}
+            "country_codes:": {country.alpha_2: country.name for country in pycountry.countries}
         }
         return jsonify(example_output), 400
 

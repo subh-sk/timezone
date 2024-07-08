@@ -19,8 +19,8 @@ def index():
                 'country': country_name,
                 'date': current_time.strftime('%Y-%m-%d'),
                 'time': {
-                    '12_hour': current_time.strftime('%I:%M:%S %p %Z%z'),
-                    '24_hour': current_time.strftime('%H:%M:%S %Z%z')
+                    '12_hour': current_time.strftime('%I:%M:%S %p %Z %z'),
+                    '24_hour': current_time.strftime('%H:%M:%S %Z %z')
                 }
             }
             return jsonify(response)
@@ -37,8 +37,8 @@ def index():
                     "country": "country_code",
                     "date": "YYYY-MM-DD",
                     "time": {
-                        "12_hour": "HH:MM:SS AM/PM TZ+ZZZZ",
-                        "24_hour": "HH:MM:SS TZ+ZZZZ"
+                        "12_hour": "HH:MM:SS AM/PM TZ+ZZ ZZ",
+                        "24_hour": "HH:MM:SS TZ+ZZ ZZ"
                     }
                 }
             },
